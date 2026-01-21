@@ -1,0 +1,48 @@
+@if (isSystemMessage) {
+<div class="system-message">
+    <span>{{ message.content }}</span>
+</div>
+} @else {
+<div class="message" [class.own]="isOwn">
+    @if (!isOwn) {
+    <div class="avatar">{{ avatarLetter }}</div>
+    }
+
+    <div class="message-content">
+        @if (!isOwn) {
+        <span class="sender-name">{{ message.senderUsername }}</span>
+        }
+
+        <div class="bubble">
+            @switch (message.type) {
+            @case (MessageType.Image) {
+            <img [src]="message.content" [alt]="'Image from ' + message.senderUsername" loading="lazy" />
+            }
+            @case (MessageType.Video) {
+            @if (isYoutubeUrl(message.content)) {
+            <div class="video-embed">
+                <iframe [src]="getYoutubeEmbedUrl(message.content)" frameborder="0" allowfullscreen></iframe>
+            </div>
+            } @else {
+            <video [src]="message.content" controls></video>
+            }
+            }
+            @case (MessageType.Link) {
+            <a [href]="message.content" target="_blank" rel="noopener noreferrer" class="link-preview">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                </svg>
+                {{ message.content }}
+            </a>
+            }
+            @default {
+            <p>{{ message.content }}</p>
+            }
+            }
+        </div>
+
+        <span class="timestamp">{{ formattedTime }}</span>
+    </div>
+</div>
+}

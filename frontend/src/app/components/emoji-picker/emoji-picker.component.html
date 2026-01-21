@@ -1,0 +1,17 @@
+<div class="emoji-picker">
+    <div class="category-tabs">
+        @for (category of categories; track category.name; let i = $index) {
+        <button [class.active]="selectedCategory === i" (click)="selectCategory(i)">
+            {{ category.emojis[0] }}
+        </button>
+        }
+    </div>
+
+    <div class="emoji-grid">
+        @for (emoji of categories[selectedCategory].emojis; track emoji) {
+        <button class="emoji-btn" (click)="selectEmoji(emoji)">
+            {{ emoji }}
+        </button>
+        }
+    </div>
+</div>

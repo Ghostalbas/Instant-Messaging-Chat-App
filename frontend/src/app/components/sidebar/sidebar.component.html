@@ -1,0 +1,60 @@
+<aside class="sidebar">
+    <div class="sidebar-header">
+        <div class="user-info">
+            <div class="avatar">{{ state?.currentUser?.username?.charAt(0)?.toUpperCase() }}</div>
+            <div class="user-details">
+                <span class="username">{{ state?.currentUser?.username }}</span>
+                <span class="status">Online</span>
+            </div>
+        </div>
+    </div>
+
+    <nav class="sidebar-nav">
+        <section class="nav-section">
+            <h3>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                    <polyline points="22,6 12,13 2,6" />
+                </svg>
+                Channels
+            </h3>
+            <ul class="nav-list">
+                @for (channel of state?.channels; track channel.id) {
+                <li>
+                    <button [class.active]="isChannelActive(channel)" (click)="selectChannel(channel)">
+                        <span class="hash">#</span>
+                        {{ channel.name }}
+                    </button>
+                </li>
+                }
+            </ul>
+        </section>
+
+        <section class="nav-section">
+            <h3>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                </svg>
+                Direct Messages
+            </h3>
+            <ul class="nav-list">
+                @for (user of state?.onlineUsers; track user.id) {
+                @if (user.id !== state?.currentUser?.id) {
+                <li>
+                    <button [class.active]="isUserActive(user)" (click)="selectUser(user)">
+                        <span class="user-avatar">{{ user.username.charAt(0).toUpperCase() }}</span>
+                        <span class="user-name">{{ user.username }}</span>
+                        <span class="online-indicator"></span>
+                    </button>
+                </li>
+                }
+                }
+                @if ((state?.onlineUsers?.length ?? 0) <= 1) { <li class="empty-message">No other users online</li>
+                    }
+            </ul>
+        </section>
+    </nav>
+</aside>
