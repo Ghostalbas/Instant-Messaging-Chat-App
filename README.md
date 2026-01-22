@@ -163,20 +163,7 @@ Users (Id, Username, ConnectionId, IsOnline, CreatedAt)
 Channels (Id, Name, Description, CreatedAt)
 Messages (Id, Content, Type, Timestamp, SenderId, ReceiverId, ChannelId)
 ChannelMemberships (Id, UserId, ChannelId, JoinedAt)
-```
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📄 License
-
-This project is open source and available under the [MIT License](LICENSE).
-
+``
 ---
 
 Built with ❤️ using Angular and ASP.NET Core
